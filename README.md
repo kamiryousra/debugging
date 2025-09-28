@@ -1,16 +1,23 @@
-# React + Vite
+# Checkpoint: Debugging with React Developer Tools
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Issues Found & Fixed
 
-Currently, two official plugins are available:
+### Issue 1: Missing Prop
+- **Description**: The `Profile` component expected a `name` prop, but it was `undefined`.
+- **How I found it**: In React DevTools → Components tab → `Profile` → props showed `name: undefined`.
+- **Fix**: Passed `name="kamir"` from the parent `App.js`.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Issue 2: State Not Updating
+- **Description**: The counter button wasn’t incrementing.
+- **How I found it**: In React DevTools, the `count` state value stayed `0` after clicks.
+- **Fix**: Changed `this.state.count++` to `this.setState({ count: this.state.count + 1 })`.
 
-## React Compiler
+### Issue 3: Unexpected Re-render
+- **Description**: Child component re-rendered on every parent change even when props didn’t change.
+- **How I found it**: React DevTools → Profiler → saw extra renders.
+- **Fix**: Used `React.memo` on the child.
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Verification
+- All props now passed correctly.
+- Counter increments as expected.
+- No unnecessary re-renders.
